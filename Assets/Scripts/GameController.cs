@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class GameController : MonoBehaviour {
 
@@ -11,11 +12,15 @@ public class GameController : MonoBehaviour {
     public float startWait;
     public float waveWait;
 
-
+    public int count;
+    public Text SorceText;
 
 	// Use this for initialization
 	void Start () {
         StartCoroutine( SpawnWaves());
+        count = 0;
+        SorceText.text = "Sorce : " + count.ToString();
+        UpdateSorce();
 	}
 	
 	// Update is called once per frame
@@ -40,5 +45,16 @@ public class GameController : MonoBehaviour {
 
             yield return new WaitForSeconds(waveWait);
         }
+    }
+
+    public void AddSorce(int newSorceValue)
+    {
+        count += newSorceValue;
+        UpdateSorce(); 
+    }
+
+    void UpdateSorce()
+    {
+        SorceText.text = "Sorce: " + count.ToString();
     }
 }

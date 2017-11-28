@@ -4,17 +4,31 @@ using UnityEngine;
 
 public class DestroyByContact : MonoBehaviour {
 
-    //// Use this for initialization
-    //void Start () {
+    public GameObject explosion;
+    public GameObject playerExplosion;
+    public int sorceValue;
+    public GameController gameController;
 
-    //}
+    // Use this for initialization
+    void Start()
+    {
+        GameObject gameControllerObject = GameObject.FindWithTag("GameController");
+        if (gameControllerObject != null)
+        {
+            gameController = gameControllerObject.GetComponent<GameController>();
+        }
+
+        if (gameControllerObject == null)
+        {
+            Debug.Log("Cannot find 'GameController' script");
+        }
+    }
 
     //// Update is called once per frame
     //void Update () {
 
     //}
-    public GameObject explosion;
-    public GameObject playerExplosion;
+
 
     private void OnTriggerEnter(Collider other)
     {
@@ -28,6 +42,7 @@ public class DestroyByContact : MonoBehaviour {
         {
             Instantiate(playerExplosion, other.transform.position, other.transform.rotation);
         }
+        gameController.AddSorce(sorceValue);
         Destroy(other.gameObject);
         Destroy(gameObject);
     }
